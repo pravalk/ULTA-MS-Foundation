@@ -6,7 +6,11 @@ import java.util.Properties;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.client.SphereClientConfig;
 import io.sphere.sdk.client.SphereClientFactory;
-
+/**
+ * 
+ * @author BrijendraK
+ *
+ */
 public class ClientService {
     /**
      * Creates a blocking sphere client

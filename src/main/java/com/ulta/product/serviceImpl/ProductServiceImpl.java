@@ -19,9 +19,9 @@ import io.sphere.sdk.products.queries.ProductByKeyGet;
 public class ProductServiceImpl implements ProductService {
 
 	@Override
-	public CompletableFuture<Product> getProductById(SphereClient client, String sku) {
+	public CompletableFuture<Product> getProductByKey(SphereClient client, String key) {
 		
-		 final ProductByKeyGet request = ProductByKeyGet.of(sku);
+		 final ProductByKeyGet request = ProductByKeyGet.of(key);
 		 CompletionStage<Product> pro= client.execute(request);
 		 CompletableFuture<Product> returnProduct =pro.toCompletableFuture();
 		 return returnProduct;

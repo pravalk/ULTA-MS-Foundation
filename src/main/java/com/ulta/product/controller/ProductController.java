@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.ulta.product.constant.ProductConstants.VIEW_PRODUCT_BYPRODUCTKEY_URI;
 import com.ulta.product.exception.ProductException;
 import com.ulta.product.service.ProductService;
 import com.ulta.product.serviceImpl.ClientService;
@@ -42,12 +44,12 @@ public class ProductController {
 	@Autowired
 	ProductService ProductService;
 	
-	@RequestMapping(value="products/{productId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Product> getProductById(@PathVariable("productId")  String productId) throws ProductException {
+	@RequestMapping(value=VIEW_PRODUCT_BYPRODUCTKEY_URI, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Product> getProductByKey(@PathVariable("productKey")  String productKey) throws ProductException {
 		
 		Product product = null;
-        log.info("getProductById method start");
-        CompletableFuture<Product> products= ProductService.getProductById(client,productId);
+        log.info("getProductByKey method start");
+        CompletableFuture<Product> products= ProductService.getProductByKey(client,productKey);
       
         try {
         	
@@ -63,12 +65,13 @@ public class ProductController {
         catch(ProductException ex) {
         	throw new ProductException(ex.getMessage());
         }
-        catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+        catch (InterruptedException ex) {
+        	throw new ProductException(ex.getMessage());
 			
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
+		} catch (ExecutionException ex) {
+			throw new ProductException(ex.getMessage());
 		}
+        log.info("getProductByKey method start"); 
 		return ResponseEntity.ok().body(product);
 	}
 }
