@@ -42,7 +42,7 @@ public class ProductController {
 	@Autowired
 	ProductService ProductService;
 	
-	@RequestMapping(value="/products/{productId}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="products/{productId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> getProductById(@PathVariable("productId")  String productId) throws ProductException {
 		
 		Product product = null;
