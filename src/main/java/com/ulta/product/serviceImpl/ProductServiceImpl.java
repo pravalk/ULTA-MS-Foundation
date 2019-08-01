@@ -1,21 +1,30 @@
 package com.ulta.product.serviceImpl;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
 import org.springframework.stereotype.Service;
 
 import com.ulta.product.service.ProductService;
 
 import io.sphere.sdk.client.SphereClient;
-import io.sphere.sdk.products.ProductProjectionType;
-import io.sphere.sdk.products.queries.ProductProjectionByIdGet;
+import io.sphere.sdk.products.Product;
+import io.sphere.sdk.products.queries.ProductByKeyGet;
 
+/**
+ * @author KapilDe
+ *
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
 
 	@Override
-	public ProductProjectionByIdGet getProductById(SphereClient client, String sku) {
-		final ProductProjectionByIdGet fetch = ProductProjectionByIdGet.of("id", ProductProjectionType.CURRENT);
-		System.out.println(fetch.toString());
-		return fetch;
+	public CompletableFuture<Product> getProductById(SphereClient client, String sku) {
+		
+		 final ProductByKeyGet request = ProductByKeyGet.of(sku);
+		 CompletionStage<Product> pro= client.execute(request);
+		 CompletableFuture<Product> returnProduct =pro.toCompletableFuture();
+		 return returnProduct;
 	}
 
 	
