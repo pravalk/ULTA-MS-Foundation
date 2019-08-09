@@ -9,7 +9,6 @@ import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +35,6 @@ public class ProductController {
 
 	static Logger log = LoggerFactory.getLogger(ProductController.class);
 	SphereClient client = null;
-	@Value("${no.data}")
-	private String message;
 
 	ProductController() {
 		try {
@@ -66,7 +63,7 @@ public class ProductController {
 				log.info("get the product details successfully.");
 			} else {
 				log.info("getting product details as null");
-				throw new ProductException(message);
+				throw new ProductException("Product not found.");
 			}
 
 		} catch (ProductException ex) {

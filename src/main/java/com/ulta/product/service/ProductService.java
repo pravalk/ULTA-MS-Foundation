@@ -12,5 +12,5 @@ import io.sphere.sdk.products.Product;
  */
 public interface ProductService {
 
-	public CompletableFuture<Product> getProductByKey(SphereClient client,String key);
+	public CompletableFuture<Product> getProductByKey(SphereClient client, String key);
 }

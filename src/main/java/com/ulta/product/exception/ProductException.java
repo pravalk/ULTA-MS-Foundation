@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class ProductException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @param exception
-     */
-    public ProductException(String exception) {
-        super(exception);
-    }
+	/**
+	 * @param exception
+	 */
+	public ProductException(String exception) {
+		super(exception);
+	}
 
 }
