@@ -42,7 +42,7 @@ public class ProductControllerTest {
 		CompletableFuture<Product> products=new CompletableFuture<Product>();
 		Product value=null;
 		products.complete(value);
-		String key="facewash";
+		String key="Liquid-exception";
 		when(productService.getProductByKey(client, key)).thenReturn(products);
 		productController.getProductByKey(key);
 	}
@@ -53,7 +53,7 @@ public class ProductControllerTest {
 		CompletableFuture<Product> products=new CompletableFuture<Product>();
 		Product value=Mockito.mock(Product.class);
 		products.complete(value);
-		String key="coffee";
+		String key="Liquid";
 		when(productService.getProductByKey(client, key)).thenReturn(products);
 		ResponseEntity<Product> result =productController.getProductByKey(key);
 		assertEquals(HttpStatus.OK, result.getStatusCode());

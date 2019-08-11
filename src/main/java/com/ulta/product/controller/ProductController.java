@@ -93,35 +93,19 @@ public class ProductController {
 		CompletableFuture<PagedQueryResult<ProductProjection>> products = ProductService.getProducts(client);
 
 		try {
-			try {
-				if (null != products.get().getResults()) {
-					product = products.get().getResults();
-					log.info("get the product details successfully.");
-				} else {
-					log.info("getting product details as null");
-					throw new ProductException("Not g");
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (null != products.get().getResults()) {
+				product = products.get().getResults();
+				log.info("get the product details successfully.");
+			} else {
+				log.info("getting product details as null");
+				throw new ProductException("Product not found.");
 			}
-
-		} catch (ProductException ex) {
+		} catch (InterruptedException ex) {
 			log.error("exception during fetching the product detail-" + ex.getMessage());
 			throw new ProductException(ex.getMessage());
-		}
-		log.info("getProduct method end");
-		try {
-			return ResponseEntity.ok().body(products.get().getResults());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExecutionException ex) {
+			log.error("exception during fetching the product detail-" + ex.getMessage());
+			throw new ProductException(ex.getMessage());
 		}
 		return ResponseEntity.ok().body(product);
 	}

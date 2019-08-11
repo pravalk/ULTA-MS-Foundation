@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public CompletableFuture<PagedQueryResult<ProductProjection>> getProducts(SphereClient client) {
-		log.info("getProductByKey method start");
+		log.info("getProducts method start");
 
 		final ProductProjectionQuery pro = ProductProjectionQuery.ofCurrent();
 		CompletionStage<PagedQueryResult<ProductProjection>> result = client.execute(pro);
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 		} else
 			throw new ProductException("Product Data is empty");
 
-		log.info("getProductByKey method end");
+		log.info("getProducts method end");
 		return returnProduct;
 	}
 
