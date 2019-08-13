@@ -3,6 +3,8 @@ package com.ulta.product.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,8 @@ import com.ulta.product.exception.ProductException;
 import com.ulta.product.service.ProductService;
 import io.sphere.sdk.client.SphereClient;
 import io.sphere.sdk.products.Product;
+import io.sphere.sdk.products.ProductProjection;
+import io.sphere.sdk.queries.PagedQueryResult;
 
 @SpringBootTest
 public class ProductControllerTest {
@@ -58,4 +62,20 @@ public class ProductControllerTest {
 		ResponseEntity<Product> result =productController.getProductByKey(key);
 		assertEquals(HttpStatus.OK, result.getStatusCode());
 	}
+	
+	@Test()
+	public void testgetProducts() {
+	
+		CompletableFuture<PagedQueryResult<ProductProjection>> products=new CompletableFuture<PagedQueryResult<ProductProjection>>();
+		ProductProjection productProjection = Mockito.mock(ProductProjection.class);
+		@SuppressWarnings("unchecked")
+		PagedQueryResult<ProductProjection> value= Mockito.mock(PagedQueryResult.class);
+		value.getResults().add(productProjection);
+		products.complete(value );
+		when(productService.getProducts(client)).thenReturn(products);
+		ResponseEntity<List<ProductProjection>> result =productController.getProducts();
+		assertEquals(HttpStatus.OK, result.getStatusCode());
+	}
+	
+	
 }
